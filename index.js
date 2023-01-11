@@ -11,27 +11,27 @@ app.use(express.json())
 app.use(morgan('tiny'))
 
 let persons = [
-    {
-      id: 1,
-      name: 'Arto Hellas',
-      number: '040-123456'
-    },
-    {
-      id: 2,
-      name: 'Ada Lovelace',
-      number: '2234555'
-    },
-    {
-      id: 3,
-      name: 'Dan Abramov',
-      number: '4543555'
-    },
-    {
-      id: 4,
-      name: 'Mary Poppendick',
-      number: '0005000'
-    }
-  ]
+  {
+    id: 1,
+    name: 'Arto Hellas',
+    number: '040-123456'
+  },
+  {
+    id: 2,
+    name: 'Ada Lovelace',
+    number: '2234555'
+  },
+  {
+    id: 3,
+    name: 'Dan Abramov',
+    number: '4543555'
+  },
+  {
+    id: 4,
+    name: 'Mary Poppendick',
+    number: '0005000'
+  }
+]
 app.get('/', (req, res) => {
   res.send('<h1>Hello World!</h1>')
 })
@@ -40,7 +40,7 @@ app.get('/api/persons', (request, response, next) => {
   Person.find({}).then(persons => {
     response.json(persons)
   })
-  .catch(error => next(error))
+    .catch(error => next(error))
 })
 
 app.get('/info', (req, res) => {
@@ -63,15 +63,11 @@ app.get('/api/persons/:id', (request, response, next) => {
 
 app.delete('/api/persons/:id', (request, response, next) => {
   Person.findByIdAndRemove(request.params.id)
-    .then(result => {
+    .then(
       response.status(204).end()
-    })
+    )
     .catch(error => next(error))
 })
-
-const generateId = () => {
-  return Math.floor(Math.random() * 9999999)
-}
 
 app.post('/api/persons', (request, response, next) => {
   const body = request.body
